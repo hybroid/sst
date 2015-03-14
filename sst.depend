@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1426283054 source:d:\hard\avr\sst\main.c
+	<avr/io.h>
+	<util/delay.h>
+	"seg_led.h"
+
+1426283972 d:\hard\avr\sst\seg_led.h
+
+1426283939 source:d:\hard\avr\sst\seg_led.c
+	<avr/io.h>
+	"seg_led.h"
+
