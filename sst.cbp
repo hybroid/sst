@@ -14,8 +14,13 @@
 				<Option compiler="avr-gcc" />
 				<Compiler>
 					<Add option="-mmcu=atmega88" />
+					<Add option="-Os" />
 					<Add option="-g" />
+					<Add option="-ffunction-sections -fdata-sections" />
 				</Compiler>
+				<Linker>
+					<Add option="-Wl,--gc-sections" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/sst.elf" prefix_auto="1" extension_auto="0" />

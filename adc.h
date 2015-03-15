@@ -31,4 +31,14 @@ inline static void adc_channel(unsigned char number)
     ADMUX |= number;
 }
 
+inline static void adc_start(void)
+{
+    ADCSRA |= (1<<ADSC);
+}
+
+inline static adc_result(void)
+{
+
+}
+
 #endif // ADC_H_INCLUDED

@@ -1,5 +1,5 @@
 #include <avr/io.h>
-#include <util/delay.h>
+//#include <util/delay.h>
 
 #include "hal.h"
 #include "seg_led.h"
@@ -19,8 +19,6 @@ int main(void)
 
     while(1)
     {
-        //
+        asm volatile("nop"::);
     }
-
-    return 0;
 }
