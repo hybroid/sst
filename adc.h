@@ -2,12 +2,13 @@
 #define ADC_H_INCLUDED
 
 #include <avr/io.h>
+#include <stdio.h>
 
 inline static void adc_init_ie(void)
 {
     /* internal 1.1V reference */
     ADMUX |= (1<<REFS1)|(1<<REFS0);
-    /* ADC enable, inteerrupt enable,
+    /* ADC enable, interrupt enable,
        prescaler ADPS:
           000 : 2
           001 : 2
@@ -36,9 +37,9 @@ inline static void adc_start(void)
     ADCSRA |= (1<<ADSC);
 }
 
-inline static adc_result(void)
+inline static unsigned int adc_result(void)
 {
-
+	return ADC;
 }
 
 #endif // ADC_H_INCLUDED
