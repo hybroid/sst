@@ -1,4 +1,13 @@
-obj/Debug/.*
-obj/Release/.*
-bin/Debug/.*
-bin/Release/.*
+# use glob sntax
+syntax: glob
+
+Debug/*.o
+Debug/*.d
+Debug/*.lss
+Debug/*.map
+Debug/*.elf
+Release/*.o
+Release/*.d
+Release/*.lss
+Release/*.map
+Release/*.elf
