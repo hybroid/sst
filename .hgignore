@@ -11,3 +11,10 @@ Release/*.d
 Release/*.lss
 Release/*.map
 Release/*.elf
+Release/*.eep
+Release/*.hex
+
+syntax: glob
+Backup Of sst.pdsbak
+sst.pdsprj.*.workspace
+Last Loaded sst.pdsbak

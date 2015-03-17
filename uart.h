@@ -1,6 +1,8 @@
 #ifndef UART_H_INCLUDED
 #define UART_H_INCLUDED
 
+#include <avr/io.h>
+
 #include "hal.h"
 
 inline static void uart_init(void)

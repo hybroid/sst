@@ -49,7 +49,7 @@ all: sst.elf secondary-outputs
 sst.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,sst.map -Wl,--gc-sections -mmcu=atmega88 -o "sst.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,sst.map -Wl,--gc-sections -mmcu=atmega88a -o "sst.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -73,7 +73,7 @@ sst.eep: sst.elf
 
 sizedummy: sst.elf
 	@echo 'Invoking: Print Size'
-	avr-size --format=avr --mcu=atmega88 sst.elf
+	avr-size --format=avr --mcu=atmega88a sst.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 

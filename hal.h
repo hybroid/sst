@@ -3,8 +3,7 @@
 
 #include <avr/io.h>
 
-/*
-#define PORT(name) PORT##name
+/*#define PORT(name) PORT##name
 #define DDR(name) DDR##name
 */
 
@@ -46,6 +45,7 @@
 
 #define PORT_LED_COM PORTC
 #define DDR_LED_COM DDRC
+#define LED_COM(n) LED_COM##n
 #define LED_COM1 3
 #define LED_COM2 4
 #define LED_COM3 5
