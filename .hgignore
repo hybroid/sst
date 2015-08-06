@@ -6,6 +6,7 @@ Debug/*.d
 Debug/*.lss
 Debug/*.map
 Debug/*.elf
+Debug/*.hex
 Release/*.o
 Release/*.d
 Release/*.lss

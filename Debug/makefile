@@ -31,8 +31,10 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
 sst.lss \
+sst.lss \
 
 SIZEDUMMY += \
+sizedummy \
 sizedummy \
 
 
@@ -43,7 +45,7 @@ all: sst.elf secondary-outputs
 sst.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,sst.map -Wl,--gc-sections -mmcu=atmega88a -o "sst.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,sst.map -mmcu=atmega88a -o "sst.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -61,7 +63,7 @@ sizedummy: sst.elf
 
 # Other Targets
 clean:
-	-$(RM) $(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) sst.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) sst.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(SIZEDUMMY)

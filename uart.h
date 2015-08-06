@@ -5,37 +5,43 @@
 
 #include "hal.h"
 
+#include <util/setbaud.h>
+
+
 inline static void uart_init(void)
 {
-    /* set baud rate */
-    UBRR0H = (unsigned char)((UART_UBRR)>>8);
-    UBRR0L = (unsigned char)(UART_UBRR);
-    /* enable Rx and Tx */
-    UCSR0B = (1<<RXEN0)|(1<<TXEN0);
-    /* frame format: 8 bits data, 2 stop bits */
-    UCSR0C = (1<<USBS0)|(1<<UCSZ00);
+	/* set baud rate */
+	UBRRH = UBRRH_VALUE;
+	UBRRL = UBRRL_VALUE;
+#if USE_2X
+	UCSRA |= (1<<U2X);
+#endif
+	/* enable Rx and Tx */
+	UCSRB |= ((1<<RXEN) | (1<<TXEN));
+    /* frame format: 8 bits data, 1 stop bit */
+	UCSRC |= ((1<<UCSZ1) | (1<<UCSZ0));
 }
 
 inline static void uart_init_rx(void)
 {
-    /* set baud rate */
-    UBRR0H = (unsigned char)((UART_UBRR)>>8);
-    UBRR0L = (unsigned char)(UART_UBRR);
-    /* enable Rx and Tx */
-    UCSR0B = (1<<RXEN0);
-    /* frame format: 8 bits data, 2 stop bits */
-    UCSR0C = (1<<USBS0)|(1<<UCSZ00);
+	/* set baud rate */
+	UBRRH = UBRRH_VALUE;
+	UBRRL = UBRRL_VALUE;
+    /* enable Rx only */
+    UCSRB = (1<<RXEN);
+    /* frame format: 8 bits data, 1 stop bit */
+	UCSRC |= ((1<<UCSZ1) | (1<<UCSZ0));
 }
 
 inline static void uart_init_tx(void)
 {
-    /* set baud rate */
-    UBRR0H = (unsigned char)((UART_UBRR)>>8);
-    UBRR0L = (unsigned char)(UART_UBRR);
-    /* enable Rx and Tx */
-    UCSR0B = (1<<TXEN0);
-    /* frame format: 8 bits data, 2 stop bits */
-    UCSR0C = (1<<USBS0)|(1<<UCSZ00);
+	/* set baud rate */
+	UBRRH = UBRRH_VALUE;
+	UBRRL = UBRRL_VALUE;
+    /* enable Tx only */
+    UCSRB = (1<<TXEN);
+    /* frame format: 8 bits data, 1 stop bit */
+	UCSRC |= ((1<<UCSZ1) | (1<<UCSZ0));
 }
 
 void uart_transmit(char data);

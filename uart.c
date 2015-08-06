@@ -4,12 +4,12 @@
 
 void uart_transmit(char data)
 {
-    while( !(UCSR0A & (1<<UDRE0)) );
-    UDR0 = data;
+    while( !(UCSRA & (1<<UDRE)) );
+    UDR = data;
 }
 
 char uart_receive(void)
 {
-    while( !(UCSR0A & (1<<RXC0)) );
-    return UDR0;
+    while( !(UCSRA & (1<<RXC)) );
+    return UDR;
 }

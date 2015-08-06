@@ -1,3 +1,5 @@
+#if defined(USE_SPI)
+
 #include <avr/io.h>
 
 #include "spi.h"
@@ -31,3 +33,5 @@ char spi_rt(char data)
 
     return SPDR;
 }
+
+#endif

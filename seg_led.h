@@ -2,7 +2,7 @@
 #define SEG_LED_H_INCLUDED
 
 #include <avr/io.h>
-#include "spi.h"
+
 #include "hal.h"
 
 typedef struct divmod10_t
@@ -13,17 +13,15 @@ typedef struct divmod10_t
 
 typedef struct seg_led_t
 {
-	unsigned char digits[3];
-	unsigned char current;
-	unsigned char previous;
-	unsigned char com_bits[3];
+	uint8_t symbols[3];			// bit codes of SEGs
+	uint8_t current;			// current COM
+	uint8_t com_bits[3];		// bit codes of COMs
 } seg_led_t;
 
-extern const unsigned char led_symbol[];
+extern const uint8_t led_symbols[];
 
 extern volatile seg_led_t display;
 
-/*
 inline static divmod10_t divmodu10(uint16_t n)
 {
     divmod10_t res;
@@ -47,25 +45,43 @@ inline static divmod10_t divmodu10(uint16_t n)
     return res;
 }
 
-char * utoa_fast_div(uint16_t value, char *buffer);
-*/
+void bin2bcd(uint16_t value, unsigned char *buffer);
 
-inline static void seg_led_tick(void)
+static inline void seg_led_set(uint8_t symbol)
 {
-	display.current++;
-	if(display.current == 3)
+	// clear all segments
+	PORTD &= ~( 0b11111100 ); // PD7..PD2
+	PORTB &= ~( 0b00000101 ); // PB2, PB0
+
+	// set segments
+	PORTD |= symbol & 0b11111100; // with mask for PD7..PD2
+	PORTB |= ((symbol & 0b00000010)<<1) | ((symbol & 0b00000001)); // for PB2, PB0
+}
+
+static inline void seg_led_tick(void)
+{
+	if( (++display.current) >= 3)
 	{
 		display.current = 0;
 	}
-	spi_transmit_bg(display.digits[display.current]);
+
+	seg_led_set( display.symbols[display.current] ); // clear all segments and set current symbol
+
+	PORT_LED_COM &= ~( (1<<LED_COM1)|(1<<LED_COM2)|(1<<LED_COM3) ) ; // clear COM
+	PORT_LED_COM |= ( display.com_bits[display.current] ); // set COM
 }
 
-static inline void seg_led_init()
+static inline void seg_led_init(void)
 {
+	// for COMs
 	DDR_LED_COM |= (1<<LED_COM1)|(1<<LED_COM2)|(1<<LED_COM3);
 	display.com_bits[0] = (1<<LED_COM1);
 	display.com_bits[1] = (1<<LED_COM2);
 	display.com_bits[2] = (1<<LED_COM3);
+
+	// for SEGs
+	DDRD |= (1<<DDD7)|(1<<DDD6)|(1<<DDD5)|(1<<DDD4)|(1<<DDD3)|(1<<DDD2);
+	DDRB |= (1<<DDB2)|(1<<DDB0);
 }
 
 #endif // SEG_LED_H_INCLUDED
