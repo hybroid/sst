@@ -8,7 +8,8 @@
 
 #if !defined(USE_SPI)
 #	error "SPI not configured in hal.c"
-#endif
+
+#else
 
 inline static void spi_init_master(void)
 {
@@ -40,5 +41,7 @@ void spi_transmit(char data);
 char spi_receive(void);
 
 char spi_rt(char data);
+
+#endif
 
 #endif // SPI_H_INCLUDED
