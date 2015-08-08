@@ -1,3 +1,7 @@
+#include "hal.h"
+
+#if defined(USE_UART)
+
 #include <avr/io.h>
 
 #include "uart.h"
@@ -13,3 +17,5 @@ char uart_receive(void)
     while( !(UCSRA & (1<<RXC)) );
     return UDR;
 }
+
+#endif

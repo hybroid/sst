@@ -1,12 +1,15 @@
 #ifndef UART_H_INCLUDED
 #define UART_H_INCLUDED
 
-#include <avr/io.h>
-
 #include "hal.h"
 
-#include <util/setbaud.h>
+#if !defined(USE_UART)
+#	error "UART not configured in hal.h"
 
+#else
+
+#include <avr/io.h>
+#include <util/setbaud.h>
 
 inline static void uart_init(void)
 {
@@ -47,5 +50,7 @@ inline static void uart_init_tx(void)
 void uart_transmit(char data);
 
 char uart_receive(void);
+
+#endif
 
 #endif // UART_H_INCLUDED

@@ -18,15 +18,6 @@ extern volatile unsigned char state;
 
 extern volatile unsigned char counter;
 
-#if defined(USE_SPI)
-ISR(SPI_STC_vect)
-{
-	PORT_LED_COM &= ~((1<<LED_COM3)|(1<<LED_COM2)|(1<<LED_COM1));
-	PORT_SPI |= (1<<SPI_SS);
-	PORT_LED_COM |= display.com_bits[display.current];
-}
-#endif
-
 ISR(TIMER0_COMPA_vect)
 {
 	state |= T_FLAG; // set T flag

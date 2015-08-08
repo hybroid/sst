@@ -1,3 +1,5 @@
+#include "hal.h"
+
 #if defined(USE_SPI)
 
 #include <avr/io.h>

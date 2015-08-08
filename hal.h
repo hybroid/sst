@@ -12,18 +12,22 @@
 #define S_FLAG 0b00000100
 
 /* SPI not used in this hardware */
+//#define USE_SPI		// uncomment this line for use SPI
+
 #define PORT_SPI PORTB
 #define DDR_SPI DDRB
 #define SPI_MOSI 3
 #define SPI_MISO 4
 #define SPI_SCK 5
 #define SPI_SS 0
+//#define SPI_IE		// uncomment this for use interrupts from SPI
 
+
+/* UART */
+#define USE_UART
 #define BAUD 38400
 
-// UART registers
 #if defined(__AVR_ATmega88__) || defined(__AVR_ATmega88A__)
-#define DEVCODE 0x73
 #define UDR			UDR0
 #define UCSRA		UCSR0A
 #	define RXC		RXC0
@@ -57,7 +61,7 @@
 #	define UBRRL	UBRR0L
 
 #else
-#	error "Bootloader code does not support this MCU"
+#	error "MCU not support"
 #endif
 
 #define PORT_ENCODER PORTB
@@ -72,32 +76,24 @@
 #define ENCODER_STATE_2 0b10
 #define ENCODER_STATE_3 0b11
 
-
+/* Buzzer defines */
 #define PORT_BUZZER PORTC
 #define DDR_BUZZER DDRC
 #define BUZZER 2
 
+/* PWM defines */
 #define PORT_PWM PORTB
 #define DDR_PWM DDRB
 #define PWM_PIN 1
 #define PWM_TIMER 1
 #define PWM_CHANNEL A
 
-/* now now buttons in hardware
-#define PORT_BUTTON PORTD
-#define DDR_BUTTON DDRD
-#define BUTTON_SB1 6
-#define BUTTON_SB2 5
-*/
-
-#define THERMO_CH 7
-
-#define PORT_LED_COM PORTC
-#define DDR_LED_COM DDRC
-#define LED_DIGITS 3
-#define LED_COM(n) LED_COM##n
-#define LED_COM1 5
-#define LED_COM2 4
-#define LED_COM3 3
+/* ADC defines */
+#define USE_ADC
+#define ADC_CH		7
+#define ADC_REF 	0b11	// 0 - AREF; 1 - AVcc; 3 - internal 1.1V (ATmega48/88/168)
+#define ADC_PRESCALLER 4	// PRESCALLER = 2^(ADC_PRESCALLER), ADC_PRESCALLER=0..7, 0=1 - div factor 2, 7 - div factor 128
+#define ADC_IE
+#define ADC_LAR		0		// left adjust result
 
 #endif // HAL_H_INCLUDED

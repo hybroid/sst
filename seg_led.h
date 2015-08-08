@@ -5,6 +5,15 @@
 
 #include "hal.h"
 
+/* Defines hardware abstractions */
+#define PORT_LED_COM PORTC
+#define DDR_LED_COM DDRC
+#define LED_DIGITS 3
+#define LED_COM(n) LED_COM##n
+#define LED_COM1 5
+#define LED_COM2 4
+#define LED_COM3 3
+
 typedef struct divmod10_t
 {
     uint16_t quot;
@@ -49,6 +58,10 @@ void bin2bcd(uint16_t value, unsigned char *buffer);
 
 static inline void seg_led_set(uint8_t symbol)
 {
+	/*
+	 * This code must be modified if hardware changed!
+	 */
+
 	// clear all segments
 	PORTD &= ~( 0b11111100 ); // PD7..PD2
 	PORTB &= ~( 0b00000101 ); // PB2, PB0
@@ -73,6 +86,10 @@ static inline void seg_led_tick(void)
 
 static inline void seg_led_init(void)
 {
+	/*
+	 * This code must be modified if hardware changed!
+	 */
+
 	// for COMs
 	DDR_LED_COM |= (1<<LED_COM1)|(1<<LED_COM2)|(1<<LED_COM3);
 	display.com_bits[0] = (1<<LED_COM1);
