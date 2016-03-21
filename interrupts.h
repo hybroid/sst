@@ -14,21 +14,26 @@
 #include "seg_led.h"
 
 
-extern volatile unsigned char state;
+extern volatile uint8_t state;
 
-extern volatile unsigned char counter;
+extern volatile uint8_t counter;
+extern volatile uint8_t counter2;
 
 ISR(TIMER0_COMPA_vect)
 {
 	state |= T_FLAG; // set T flag
 
-	counter++;
-
-	if(counter == 5)
+	if(++counter == 5)
 	{
 		counter = 0; // clear counter
 		state |= R_FLAG; // set R flag
 	}
+
+}
+
+ISR(TIMER1_COMPB_vect)
+{
+	state |= AD_FLAG;
 }
 
 #endif /* INTERRUPTS_H_INCLUDED */

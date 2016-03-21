@@ -12,8 +12,17 @@ RM := rm -rf
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(I_DEPS)),)
+-include $(I_DEPS)
+endif
 ifneq ($(strip $(ASM_DEPS)),)
 -include $(ASM_DEPS)
+endif
+ifneq ($(strip $(M_DEPS)),)
+-include $(M_DEPS)
+endif
+ifneq ($(strip $(MI_DEPS)),)
+-include $(MI_DEPS)
 endif
 ifneq ($(strip $(S_DEPS)),)
 -include $(S_DEPS)
@@ -63,7 +72,7 @@ sizedummy: sst.elf
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) sst.elf
+	-$(RM) $(ELFS)$(I_DEPS)$(OBJS)$(ASM_DEPS)$(M_DEPS)$(MI_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) sst.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(SIZEDUMMY)

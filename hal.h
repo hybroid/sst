@@ -7,9 +7,14 @@
 #define F_CPU 8000000
 #endif
 
-#define T_FLAG 0b00000001
-#define R_FLAG 0b00000010
-#define S_FLAG 0b00000100
+#define T_FLAG		0b00000001
+#define R_FLAG		0b00000010
+#define AD_FLAG		0b00000100
+#define ENC_FLAG	0b00001000
+#define DC_FLAG		0b00010000
+
+/* Bootloader */
+#define BOOT_ADDR	0x0e00
 
 /* SPI not used in this hardware */
 //#define USE_SPI		// uncomment this line for use SPI
@@ -92,8 +97,8 @@
 #define USE_ADC
 #define ADC_CH		7
 #define ADC_REF 	0b11	// 0 - AREF; 1 - AVcc; 3 - internal 1.1V (ATmega48/88/168)
-#define ADC_PRESCALLER 4	// PRESCALLER = 2^(ADC_PRESCALLER), ADC_PRESCALLER=0..7, 0=1 - div factor 2, 7 - div factor 128
+#define ADC_PRESCALLER 6	// PRESCALLER = 2^(ADC_PRESCALLER), ADC_PRESCALLER=0..7, 0=1 - div factor 2, 7 - div factor 128
 #define ADC_IE
-#define ADC_LAR		0		// left adjust result
+#define ADC_LAR		1		// left adjust result, for 8-bit result
 
 #endif // HAL_H_INCLUDED

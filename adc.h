@@ -3,33 +3,25 @@
 
 #include "hal.h"
 
-#ifndef USE_UART
+#ifndef USE_ADC
 #	error "ADC not configured in hal.h"
 
 #else
 
 #include <avr/io.h>
-#include <stdio.h>
+
+extern volatile uint16_t adc;
 
 inline static void adc_init(void)
 {
-	ADMUX |= (ADC_REF<<REFS0)|(ADC_LAR<<ADLAR)|(ADC_CH&0b0000);
+	ADMUX |= (ADC_REF<<REFS0)|(ADC_LAR<<ADLAR)|(ADC_CH&0b1111);
 
 	ADCSRA |= (1<<ADEN)
 #ifdef ADC_IE
-				|(1<<ADIE)
+			  |(1<<ADIE)
 #endif
-				|(ADC_PRESCALLER<<ADPS0);
+			  |(ADC_PRESCALLER<<ADPS0);
 }
-
-#ifdef ADC_IE
-#include <avr/interrupt.h>
-
-ISR(ADC_vect)
-{
-	//
-}
-#endif
 
 inline static void adc_channel(uint8_t number)
 {
@@ -47,7 +39,11 @@ inline static void adc_start(void)
 
 inline static uint16_t adc_result(void)
 {
+#if defined(ADC_LAR) && ADC_LAR == 1
+	return ADCH;
+#else
 	return ADC;
+#endif
 }
 
 #endif

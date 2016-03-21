@@ -10,7 +10,7 @@
 
 #include "hal.h"
 
-extern volatile unsigned char encoder_state;
+extern volatile uint8_t encoder_state;
 
 static inline void encoder_init(void)
 {
@@ -18,6 +18,6 @@ static inline void encoder_init(void)
 	encoder_state = ENCODER_STATE;
 }
 
-extern void encoder_scan(unsigned int *value);
+extern void encoder_scan(uint16_t *value);
 
 #endif /* ENCODER_H_INCLUDED */

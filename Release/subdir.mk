@@ -6,7 +6,6 @@
 C_SRCS += \
 ../adc.c \
 ../encoder.c \
-../interrupts.c \
 ../main.c \
 ../seg_led.c \
 ../spi.c \
@@ -15,7 +14,6 @@ C_SRCS += \
 OBJS += \
 ./adc.o \
 ./encoder.o \
-./interrupts.o \
 ./main.o \
 ./seg_led.o \
 ./spi.o \
@@ -24,7 +22,6 @@ OBJS += \
 C_DEPS += \
 ./adc.d \
 ./encoder.d \
-./interrupts.d \
 ./main.d \
 ./seg_led.d \
 ./spi.d \

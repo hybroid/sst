@@ -5,14 +5,18 @@
  *      Author: Tony Darko
  */
 
+#include <avr/io.h>
+
 #include "hal.h"
 #include "encoder.h"
 
-volatile unsigned char encoder_state;
+volatile uint8_t encoder_state;
 
-void encoder_scan(unsigned int *value)
+extern volatile uint8_t state;
+
+void encoder_scan(uint16_t *value)
 {
-	unsigned char new_state = ENCODER_STATE;
+	uint8_t new_state = ENCODER_STATE;
 
 	switch(encoder_state)
 	{
@@ -42,5 +46,9 @@ void encoder_scan(unsigned int *value)
 		}
 	}
 
-	encoder_state = new_state;
+	if(encoder_state != new_state)
+	{
+		state |= ENC_FLAG;
+		encoder_state = new_state;
+	}
 }
